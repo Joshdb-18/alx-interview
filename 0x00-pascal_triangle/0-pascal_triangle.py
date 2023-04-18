@@ -7,14 +7,13 @@ Pascal triangle function
 def pascal_triangle(n):
     if n <= 0:
         return []
-
-    triangle = [[1]]
-
-    for i in range(1, n):
+    elif n == 1:
+        return [[1]]
+    else:
+        triangle = pascal_triangle(n-1)
         row = [1]
-        for j in range(1, i):
-            row.append(triangle[i-1][j-1] + triangle[i-1][j])
+        for i in range(1, n-1):
+            row.append(triangle[-1][i-1] + triangle[-1][i])
         row.append(1)
         triangle.append(row)
-
-    return triangle
+        return triangle
