@@ -15,7 +15,8 @@ def validUTF8(data):
     for num in data:
         # If remaining_bytes is 0, it means we are starting a new character
         if remaining_bytes == 0:
-            # Count the number of leading 1s to determine the number of bytes in the character
+            # Count the number of leading 1s to determine
+            # the number of bytes in the character
             mask = 1 << 7
             while mask & num:
                 remaining_bytes += 1
@@ -37,5 +38,6 @@ def validUTF8(data):
         # Decrement the remaining_bytes count for each byte
         remaining_bytes -= 1
 
-    # All bytes have been checked, and there are no remaining incomplete characters
+    # All bytes have been checked, and there are no
+    # remaining incomplete characters
     return remaining_bytes == 0
