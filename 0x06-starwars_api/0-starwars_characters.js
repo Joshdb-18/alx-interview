@@ -5,7 +5,7 @@ const request = require('request');
 const movieId = process.argv[2];
 
 const options = {
-  url: `https://swapi.dev/api/films/${movieId}/`,
+  url: `https://swapi-api.alx-tools.com/api/`,
   method: 'GET',
   headers: {
     'User-Agent': 'request',
