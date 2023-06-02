@@ -2,28 +2,25 @@
 
 const request = require('request');
 
-// Get the Movie ID from command line arguments
 const movieId = process.argv[2];
 
-// Make a request to the Star Wars API to get the movie details
-request(`https://swapi.dev/api/films/${movieId}/`, (error, response, body) => {
-  if (error) {
-    console.error('Error:', error);
-  } else if (response.statusCode !== 200) {
-    console.error('Status Code:', response.statusCode);
-  } else {
-    const movie = JSON.parse(body);
-    const characters = movie.characters;
+const options = {
+  url: `https://swapi.dev/api/films/${movieId}/`,
+  method: 'GET',
+  headers: {
+    'User-Agent': 'request',
+  },
+};
 
-    // Iterate over each character and print their name
+request(options, (error, response, body) => {
+  if (!error && response.statusCode === 200) {
+    const film = JSON.parse(body);
+    const characters = film.characters;
+
     characters.forEach((characterUrl) => {
-      request(characterUrl, (error, response, body) => {
-        if (error) {
-          console.error('Error:', error);
-        } else if (response.statusCode !== 200) {
-          console.error('Status Code:', response.statusCode);
-        } else {
-          const character = JSON.parse(body);
+      request({ url: characterUrl, method: 'GET', headers: { 'User-Agent': 'request' } }, (err, resp, charBody) => {
+        if (!err && resp.statusCode === 200) {
+          const character = JSON.parse(charBody);
           console.log(character.name);
         }
       });
