@@ -1,1 +1,1 @@
-## Prime number
+## Prime numbers
